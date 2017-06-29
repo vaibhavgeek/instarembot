@@ -1,0 +1,14 @@
+<div class=" container">
+<br/>
+<div class="col-md-10 col-md-offset-1 panel">
+<form id="conversion_fx pull-left"> 
+Currency from: <%= select_tag "from_curr" , options_for_select([["US Dollar", "USD"], ["Australian Dollar", "AUD"] , ["Hong Kong Dollar" , "HKD"] , ["Singapore Dollar" , "SD"]]) %>  <br/>
+Currency to :<%= select_tag "country" , options_for_select([["US Dollar", "USD"], ["Australian Dollar", "AUD"] , ["Hong Kong Dollar" , "HKD"] , ["Singapore Dollar" , "SD"] , ["Bangladeshi Taka" , "BDT"] , ["Euro" , "EUR"] , ["British Pound" , "GBP"] , ["Hong Kong Dollar" , "HKD"] , ["IndianEsian Rupiah" , "IDR"] , ["Indian Ruppee" , "INR"] , ["SriLankan Ruppee" , "LKR"] , ["Malaysian Ringgit" , "MYR"] , ["Nepalese Ruppee" , "NPR"] , ["Philleppine Pese" , "PHP"] , ["Thai Bhat" , "THB"] , ["Vietnamese Dong", "VND"]]) %> <br/>
+
+<%=link_to "Rate " ,  bot_fx_path , :class => "btn btn-success pull-right" , :remote => "true" %>
+<br/><br/>
+</form>
+</div>
+</div>
+<div id="showrate">
+</div>

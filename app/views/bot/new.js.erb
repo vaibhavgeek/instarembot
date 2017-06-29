@@ -1,0 +1,5 @@
+$('#show').append($("#message_input").val());
+$('#show').html("<%=j render @messages %>");
+$("#message_input").val('');
+$("#typing").hide();
+

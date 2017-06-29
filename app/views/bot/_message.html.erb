@@ -1,0 +1,8 @@
+<% if message.from_id == "bot" %> 
+<div class="well">
+<%= message.message %> <br/>
+</div>
+<% else %>
+<%= message.message %> <br/>
+
+<% end %>

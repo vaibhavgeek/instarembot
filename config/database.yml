@@ -1,0 +1,27 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: project_opment
+  pool: 5
+  username: vaibhavm
+  password: 
+
+test: &TEST
+  adapter: postgresql
+  encoding: utf8
+  database: project_t
+  pool: 5
+  username: vaibhavm
+  password:
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  url: <%= ENV["DATABASE_URL"] %>
+  database: project_production
+  pool: 5
+  username: 
+  password:
+
+cucumber:
+  <<: *TEST
