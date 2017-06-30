@@ -1,14 +1,58 @@
-<div class=" container">
-<br/>
-<div class="col-md-10 col-md-offset-1 panel">
-<form id="conversion_fx pull-left"> 
-Currency from: <%= select_tag "from_curr" , options_for_select([["US Dollar", "USD"], ["Australian Dollar", "AUD"] , ["Hong Kong Dollar" , "HKD"] , ["Singapore Dollar" , "SD"]]) %>  <br/>
-Currency to :<%= select_tag "country" , options_for_select([["US Dollar", "USD"], ["Australian Dollar", "AUD"] , ["Hong Kong Dollar" , "HKD"] , ["Singapore Dollar" , "SD"] , ["Bangladeshi Taka" , "BDT"] , ["Euro" , "EUR"] , ["British Pound" , "GBP"] , ["Hong Kong Dollar" , "HKD"] , ["IndianEsian Rupiah" , "IDR"] , ["Indian Ruppee" , "INR"] , ["SriLankan Ruppee" , "LKR"] , ["Malaysian Ringgit" , "MYR"] , ["Nepalese Ruppee" , "NPR"] , ["Philleppine Pese" , "PHP"] , ["Thai Bhat" , "THB"] , ["Vietnamese Dong", "VND"]]) %> <br/>
+   <li class="message left appeared">
+  <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+                <div class="text_wrapper">
+                    <div class="text-header">Select sending & Receiving countries</div>
+                    <ul>
+                        <li>
+                            <div class="to_from">From</div>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle country" type="button" data-toggle="dropdown">
+                            <span class="country_name">US Dollar</span>
+                                  <%= image_tag "chevron.png" , :class => "drop_icon" %>  </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Australian Dollar</a></li>
+                                    <li><a href="#">Hong Kong Dollar</a></li>
+                                    <li><a href="#">Singapore Dollar</a></li>
+                                </ul>
+                            </div>
+                            <div class="to_from">To</div>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle country" type="button" data-toggle="dropdown">
+                            <span class="country_name">Indian Ruppee</span>
+                               <%= image_tag "chevron.png" , :class => "drop_icon" %> 
+                                   </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Australian Dollar</a></li>
+                                    <li><a href="#">Hong Kong Dollar</a></li>
+                                    <li><a href="#">Singapore Dollar</a></li>
+                                    <li><a href="#">Bangladeshi Taka</a></li>
+                                    <li><a href="#">Euro</a></li>
+                                    <li><a href="#">British Pound</a></li>
+                                    <li><a href="#">IndianEsian Rupiah</a></li>
+                                    <li><a href="#">SriLankan Ruppee</a></li>
+                                    <li><a href="#">Malaysian Ringgit</a></li>
+                                    <li><a href="#">Nepalese Ruppee</a></li>
+                                    <li><a href="#"> Philleppine Pese </li>
 
-<%=link_to "Rate " ,  bot_fx_path , :class => "btn btn-success pull-right" , :remote => "true" %>
-<br/><br/>
-</form>
-</div>
-</div>
+	                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li id="center-align"> <%=link_to "Rate " ,  bot_fx_path  , :remote => "true" %></li>
+                    </ul>
+                </div>
+            </li>
+
+
+
+
+
+
+
+
+
 <div id="showrate">
 </div>
+
+

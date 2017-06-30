@@ -1,5 +1,11 @@
-<div class=" container">
-<div class="col-md-10 col-md-offset-1 panel">
- <h3> <%= @parsed["responseData"][0] %> INR -> 1 USD </h3>
- </div>
- </div>
+<li class="message left appeared">
+  <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+                <div class="text_wrapper">
+                    <div class="text-header">FX rate for <span id="from-fx">AUS</span> - <span id="to-fx">IND</span></div>
+                    <ul>
+                        <li id="fx_value"><%= @parsed["responseData"][0] %></li>
+                        <li id="center-align">Calculate Again</li>
+                    </ul>
+                </div>
+            </li>
+  

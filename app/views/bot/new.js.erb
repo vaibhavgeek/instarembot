@@ -2,4 +2,5 @@ $('#show').append($("#message_input").val());
 $('#show').html("<%=j render @messages %>");
 $("#message_input").val('');
 $("#typing").hide();
+$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 
