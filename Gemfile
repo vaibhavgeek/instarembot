@@ -14,7 +14,6 @@ gem "font-awesome-rails"
 gem "htmlentities"
 gem 'api-ai-ruby'
 
-gem 'bootstrap-sass'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets

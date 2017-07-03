@@ -198,8 +198,9 @@ body.zipiopen > #zipi-chatbox{
   }
 }
 @import "style_fx";
-@import "main";
 @import "style";
+@import "main";
+
 .bottom {
   position: fixed;
   right: 0;
@@ -221,9 +222,18 @@ body.zipiopen > #zipi-chatbox{
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
 
+body {
+  background-color: #edeff2;
+    font-family: "avenir" , sans-serif;
+}
 
+@font-face {
+
+   font-family: "avenir" ;
+    src: url('asset_path("._AvenirLTStd-Roman.eot")');
+    
+}
