@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'avenir';
+  src: url('assets/AvenirLTStd-Book.woff') format('woff'),
+       url('assets/AvenirLTStd-Book.eot') format('eot'),
+       url('assets/AvenirLTStd-Book.ttf') format('truetype');
+}
+
 .chat_window{
   .intro-box{
     .col-md-10{
@@ -22,13 +29,12 @@
 * {
   box-sizing: border-box;
 }
-@font-face {
-  font-family: 'avenir';
-  src: url('/fonts/AvenirLTStd-Book.woff') format('woff'),
-       url('/fonts/AvenirLTStd-Book.eot') format('eot'),
-       url('/fonts/AvenirLTStd-Book.ttf') format('truetype');
-}
 
+
+body {
+  background-color: #edeff2;
+  font-family: "avenir" !important;
+}
 
 .chat_window {
   position: absolute;
@@ -108,7 +114,7 @@
 }
 
 .title > div{
-  display: inline-block;
+	display: inline-block;
 }
 
 .messages {
@@ -117,11 +123,9 @@
   list-style: none;
   padding: 20px 10px 0 10px;
   margin: 0;
-  height: 347px;
   overflow: scroll;
-  font-family: "avenir", sans-serif;
-
   background-color: #fff;
+  margin-bottom: 50px;
 }
 .messages .message {
   clear: both;
@@ -145,7 +149,7 @@
   float: left;
 }
 .messages .message.left .text_wrapper {
-    background-color: #fff;
+  	background-color: #fff;
     margin-left: 5px;
 }
 
@@ -161,12 +165,12 @@
     text-align: left;
     color: #52a8dd;
     font-size: 16px;
-    padding: 10px 26px;
+    padding: 10px 19px;
 }
 .messages .message.left .text_wrapper .b-list li{
   text-align: left;
   color: #595959;
-  font-size: 27px;
+  font-size: 18px;
 }
 
 .messages .message.left .text_wrapper ul li:last-child{
@@ -213,12 +217,12 @@
   margin: 55px 70px;
 }
 .intro-box{
-  background-color: #fff;
+	background-color: #fff;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
 }
 .intro-box .row .col-md-10{
-  margin-top: 37px;
+	margin-top: 37px;
   padding-left: 154px;
 }
 .intro-box .row .col-md-10 h2{
@@ -253,22 +257,25 @@
   border-radius: 36px;
 }
 .messages .message .text_wrapper .b-bank,.b-id{
-  display:inline-block;
+  display:inline;
  
 }
 .messages .message .text_wrapper .b-bank img,.b-id img{
-  padding-right: 10px;
+  padding-right: 1px;
+  width: 13px;
 }
 .messages .message .text_wrapper .b-bank img{
   position: relative;
   top:-3px;
+  width: 16px;
 }
 .messages .message .text_wrapper .b-id{
-  padding-left: 90px;
+  padding-left: 22px;
 }
 .messages .message .text_wrapper .b-bank,.b-id span{
-  font-size: 18px;
+  font-size: 12px;
   border: none;
+  padding-left: 3px;
 }
 .messages .message .text_wrapper::after, .messages .message .text_wrapper:before {
   top: 18px;
@@ -349,7 +356,7 @@
   .left{
     .text_wrapper{
       .b-name{
-        padding: 8px 0;
+        padding: 5px 0;
       }
       .b-list{
         li{
@@ -358,20 +365,35 @@
             padding: 6px 0;
           }
           .b-search{
-            width: 89%;
+            width: 86%;
             border: none;
             box-shadow: none;
-            font-size: 27px;
+            font-size: 18px;
             color: #52a8dd;
           }
           .glyphicon-search{
             color: #52a8dd;
             cursor: pointer;
+            top: 7px;
           }
         }
       }
       ul{
         li{
+          .date-time{
+            border-top: 1px solid #f1f0f0;
+            border-bottom: 1px solid #f1f0f0;
+            margin: 8px 18px;
+            color: #9b9b9b;
+            font-size: 14px;
+            .time,.date{
+              display: inline;
+            }
+            .time{
+              text-align: right;
+              padding-left: 34%;
+            }
+          }
           .show-pass{
             cursor: pointer;
             float: right;
@@ -380,6 +402,30 @@
           }
           }
           #status-li{
+            .flag{
+              .val{
+                font-size: 22px;
+                color: black;
+                margin: 17px 0 29px -30px;
+                span{
+                  font-size: 12px;
+                }
+              }
+              .flag-row{
+                height: 129px;
+              }
+              padding-top: 20px;
+              img{
+                margin: 11px 19px;
+                margin-bottom: 23px;
+                display: block;
+              }
+              .down-arrow{
+                position: relative;
+                top: -106px;
+                left: 51px;
+              }
+            }
             text-align: center;
             padding: 0;
             div.status-div{
@@ -392,7 +438,7 @@
               }
               .head{
                 color: #9b9b9b;
-                font-size: 18px;
+                font-size: 14px;
               }
             }
           }

@@ -1,21 +1,51 @@
-<br/><div class=" container">
-<div class="col-md-10 panel col-md-offset-1">
+<li class="message left appeared">
+					<div class="avatar"> <%=image_tag "tackie-big.png" %> </div>
+					<% @transacts.each do |trans| %>
+					<div class="text_wrapper">
+						<div class="text-header">Transaction RefId : <%= trans["refNumber"] %></div>
+						<ul>
+							<li id="status-li">
+								<div class="row flag">
+									<div class="col-xs-5 flag-row" >
+										
+										<%= image_tag ("down-arrow.png") , :class => "down-arrow" %>
+									</div>
+									<div class="col-xs-7">
+										<div class="from-val val">
+											<%= trans["sendAmount"] %> <span><%= trans["currency"] %></span>
+										</div>
+										<div class="to-val val">
+											10337.34 <span>INR</span>
+										</div>
+									</div>
+								</div>
+								<div class="date-time">
+									<div class="date">
+										<%= trans["senderDate"] %>
+									</div>
+									<div class="time">
+										<%= trans["senderTime"] %>
+									</div>
+								</div>
+								<div class="status-div">
+									<div class="head">Beneficiary</div>
+									<div class="val"> <%= trans["payeeName"] %> </div>
+								</div>
+								<div class="status-div">
+									<div class="head">FX Rate</div>
+									<div class="val">50.9</div>
+								</div>
+								<div class="status-div">
+									<div class="head">Status</div>
+									<div class="val"><%= trans["transferStatus"] %></div>
+								</div>
+							</li> 
+							<li id="clear-pass-li">
+							<div>Write to us</div>
+								<div>Satisfied</div>
+							</li> 
+						</ul>
+					</div> <br/>
+					<% end %>
+				</li>
 
-Name : <%= @prev_transact_1["payeeName"] %> <br/>
-
-
-Send Amount : <%= @prev_transact_1["sendAmount"] %>  <%= @prev_transact_1["currency"] %>   <br/> 
-Status : <%= @prev_transact_1["transferStatus"] %> <br/>
-Reference Number : <%= @prev_transact_1["refNumber"] %> <br/>
-( <%= @prev_transact_1["senderDate"] %> , <%= @prev_transact_1["senderTime"] %>)
-<br/><hr/>
-
-Name : <%= @prev_transact_2["payeeName"] %> <br/>
-
-
-Send Amount : <%= @prev_transact_2["sendAmount"] %>  <%= @prev_transact_2["currency"] %>   <br/> 
-Status : <%= @prev_transact_2["transferStatus"] %> <br/>
-Reference Number : <%= @prev_transact_2["refNumber"] %> <br/>
-( <%= @prev_transact_2["senderDate"] %> , <%= @prev_transact_2["senderTime"] %>)
-</div>
-</div>

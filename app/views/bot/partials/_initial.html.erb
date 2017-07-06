@@ -7,35 +7,53 @@
 	
 	<div id="append_after_login"> 
 
-<div class="login-form-1">
-
-
-
-
-    <%= form_tag(bot_login_path , :method=>'post', :multipart => true , :class => "text-left" , :id => "login-form" , :remote => "true") do %>
-
-			<div class="login-form-main-message"></div>
-			<div class="main-login-form">
-				<div class="login-group">
-					<div class="form-group">
-						<label for="lg_username" class="sr-only">Email</label>
-						<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="Email">
-					</div>
-					<div class="form-group">
-						<label for="lg_password" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Password">
-					</div>
-					
+  <li class="message right appeared">
+		 	<div class="text_wrapper">
+		 		<div class="text">
+		 		ExistingCustomer 
 				</div>
+		 	</div>
+		 </li>
 
-				<%= button_tag(:type => "submit" , :class => "login-button")  do %>
+<li class="message left appeared">
+      <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+      <div class="text_wrapper">
+        <div class="text-header">Please enter your details to login</div>
+        <ul>
+            <%= form_tag(bot_login_path , :method=>'post', :multipart => true , :class => "text-left" , :id => "login-form" , :remote => "true") do %>
+
+          <li>
+          <label for="lg_username" style="display: none;" class="sr-only">Email</label>
+
+          <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="Email"></li>
+
+
+          <li>
+          <label for="lg_password" style="display: none;" class="sr-only">Password</label>
+
+          <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Password"></li> 
+          <li id="clear-pass-li">
+  	<div><button onclick="document.getElementById('login-form').reset(); return false">
+          	Clear </button>
+          	</div>
+          	<div><%= button_tag(:type => "submit")  do %>
    				Login
-   				<% end %>
+   				<% end %></div>
+          </li> 
+        </ul>
+      </div>
+     </li>
+
+
+		
+					
+					
+					
+
+				
 			
-			</div>
 			
 		<% end %>
-	</div>
 	<br/><br/>
 	
 	</div>

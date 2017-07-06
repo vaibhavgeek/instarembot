@@ -3,8 +3,6 @@ require 'net/http'
 require 'htmlentities'
   
 class BotController < ApplicationController
-  
-
 
   def index
   	@message = Message.new
@@ -48,18 +46,16 @@ class BotController < ApplicationController
   url = URI("http://stagingapi.instarem.com/v1/api/v1/GetPaymentHistory?fromDate=&toDate=")
   auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
   puts auth_token
-http = Net::HTTP.new(url.host, url.port)
+  http = Net::HTTP.new(url.host, url.port)
+  request = Net::HTTP::Get.new(url)
+  request["authorization"] = 'amx ' + auth_token.to_s
+  request["content-type"] = 'application/x-www-form-urlencoded'
+  request["cache-control"] = 'no-cache'
+  request["postman-token"] = 'ab84c662-a0cd-c30d-4b66-7114044bfb1f'
 
-request = Net::HTTP::Get.new(url)
-request["authorization"] = 'amx ' + auth_token.to_s
-request["content-type"] = 'application/x-www-form-urlencoded'
-request["cache-control"] = 'no-cache'
-request["postman-token"] = 'ab84c662-a0cd-c30d-4b66-7114044bfb1f'
-
-response = http.request(request)
-parsed = JSON.parse(response.read_body) 
-@prev_transact_1 = parsed["responseData"][0] 
-@prev_transact_2 = parsed["responseData"][1]
+  response = http.request(request)
+  parsed = JSON.parse(response.read_body) 
+  @transacts = parsed["responseData"].first(1)
     respond_to do |format|
       format.js
     end
@@ -97,7 +93,7 @@ parsed = JSON.parse(response.read_body)
     request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
 
     response = http.request(request)
-    @parsed =  JSON.parse(response.read_body)["responseData"]
+    @parsed =  JSON.parse(response.read_body)["responseData"].first(3)
   end
 
   def start
@@ -136,6 +132,8 @@ parsed = JSON.parse(response.read_body)
     end
   end
   
+
+
   private
 
   def message_params

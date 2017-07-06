@@ -3,29 +3,17 @@
 					<div class="text_wrapper">
 						<div class="text-header">Your beneficiary list</div>
 						<ul class="b-list">
+						<% @parsed.each do |bene| %>
 							<li>
 								<div class="b-name">
-									Jonathan Mathew
+									<%= bene["firstName"] %> <%= bene["lastName"] %> 
 								</div>
 								<div class="b-bank">
-									<img src="images/bank.png"> <span class="b-bank-name">HDFC Bank</span>
+									<%= image_tag "bank.png" %> <span class="b-bank-name"><%= bene["bank"] %></span>
 								</div>
-								<div class="b-id"><img src="images/id-no.png"><span class="b-id-no">1234-2345-4565-123</span></div>
+								<div class="b-id"><%= image_tag "id-no.png" %><span class="b-id-no"><%= bene["accountNumber"] %></span></div>
 							</li>
-							<li>
-								<div class="b-name">Samuel R.</div>
-								<div class="b-bank">
-									<img src="images/bank.png"> <span class="b-bank-name">HDFC Bank</span>
-								</div>
-								<div class="b-id"><img src="images/id-no.png"><span class="b-id-no">1234-2345-4565-123</span></div>
-							</li> 
-							<li>
-								<div class="b-name">Zakir</div>
-								<div class="b-bank">
-									<img src="images/bank.png"> <span class="b-bank-name">HDFC Bank</span>
-								</div>
-								<div class="b-id"><img src="images/id-no.png"><span class="b-id-no">1234-2345-4565-123</span></div>
-							</li>
+							<% end %>
 							<li>
 								<div class="row">
 									<div class="input-group">
@@ -39,36 +27,4 @@
 					</div>
 				</li>
 				
-
- <div class=" container">
-
-<div class="col-md-10 col-md-offset-1 panel">
- <h4>  <%= @parsed[0]["firstName"] %>  <%= @parsed[0]["lastName"] %>
- </h4>
- <p class="lead">
- <%= @parsed[0]["bank"] %> : <%= @parsed[0]["accountNumber"] %> </p>
- </div>
-
-<div class="col-md-10 col-md-offset-1 panel">
- <h4>  <%= @parsed[1]["firstName"] %>  <%= @parsed[1]["lastName"] %>
- </h4>
- <p class="lead">
- <%= @parsed[1]["bank"] %> : <%= @parsed[1]["accountNumber"] %> </p>
- </div>
-
-<div class="col-md-10 col-md-offset-1 panel">
- <h4>  <%= @parsed[2]["firstName"] %>  <%= @parsed[2]["lastName"] %>
- </h4>
- <p class="lead">
- <%= @parsed[2]["bank"] %> : <%= @parsed[2]["accountNumber"] %> </p>
- </div>
-
-<div class="col-md-10 col-md-offset-1 panel">
- <h4>  <%= @parsed[3]["firstName"] %>  <%= @parsed[3]["lastName"] %>
- </h4>
- <p class="lead">
- <%= @parsed[3]["bank"] %> : <%= @parsed[3]["accountNumber"] %> </p>
- </div>
- 
- </div>
 
