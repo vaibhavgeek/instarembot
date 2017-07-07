@@ -26,11 +26,11 @@ Welcome to Instarem Bot! Are you a returning user to instarem or you would just 
 <div id="typing"> 
  </div>
  <ul id="popups" class="pager">
-   <!-- <li><a> What is Instarem? </a></li>
-    <li><a> Instarem Fees </a></li>
-    <li><a> Supported Currencies </a></li>
-    <li><a> Why a fees difference</a></li>
--->
+   <li><a> FAQ </a></li>
+    <li><a> Offers </a></li>
+    <li><a> Compliance </a></li>
+    <li><a> Transaction </a></li>
+
   </ul>
  <div class="bottom">
 
@@ -53,9 +53,7 @@ var questions_popups = ["Is it safe to send money through Instarem?" , "Sending 
 
 
 $('#popups a').click(function (e) {
-	console.log(e.currentTarget.text);
-  console.log(questions_popups.length);
-  
+ 
 	  $("#message_input").val(e.currentTarget.text);
     $("#new_message").submit();
     number = Math.floor(Math.random() * questions_popups.length);
