@@ -1,7 +1,10 @@
 <li class="message left appeared">
   <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
                 <div class="text_wrapper">
-                    <div class="text-header">FX rate for <span id="from-fx">AUS</span> - <span id="to-fx">IND</span></div>
+                    <div class="text-header">
+                    FX rate for <span id="from-fx"><%= request.params["from_curr"] %>
+</span> - <span id="to-fx"><%= request.params["country"] %>
+</span></div>
                     <ul>
                         <li id="fx_value"><%= @parsed["responseData"][0] %></li>
                         <li id="center-align">Calculate Again</li>

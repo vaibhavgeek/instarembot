@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'avenir';
-  src: url('assets/AvenirLTStd-Book.woff') format('woff'),
-       url('assets/AvenirLTStd-Book.eot') format('eot'),
-       url('assets/AvenirLTStd-Book.ttf') format('truetype');
+  src: url('/assets/AvenirLTStd-Book.woff') format('woff'),
+       url('/assets/AvenirLTStd-Book.eot') format('eot'),
+       url('/assets/AvenirLTStd-Book.ttf') format('truetype');
 }
 
 .chat_window{
@@ -21,7 +21,7 @@
   .messages{
     .message{
       .text_wrapper{
-        width: 95%;
+        width: 100%;
       }
     }
   }
@@ -189,6 +189,7 @@ body {
   background-color: #52a8dd;
   margin-right: 5px;
   float: right;
+  width: 100% !important;
   border-radius: 20px;
   }
 
@@ -421,7 +422,7 @@ body {
               }
               .down-arrow{
                 position: relative;
-                top: -106px;
+                top: -12px;
                 left: 51px;
               }
             }

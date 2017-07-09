@@ -1,13 +1,12 @@
 
-<% if @status_code == 200 %> 
+	<% if @status_code == 200 %> 
+	$("#append_after_login").html("<%= j render( 'bot/partials/prev') %>")
+	$("#message_alert").html("<center> <%= @status_m.html_safe %> </center> ");
 
-$("#append_after_login").html("<%= j render( 'bot/partials/prev') %>")
-$("#message_alert").html("<center> <%= @status_m.html_safe %> </center> ");
+	<% else %> 
 
-<% else %> 
+	$("#append_after_login").html(" ");
+	$("#message_alert").html("<div class ='alert alert-danger '> <center>  You cannot login because of invalid credentials </center> </div> ");
 
-$("#append_after_login").html("");
-$("#message_alert").html("<div class ='alert alert-danger ' > <center> <%= @status_m.html_safe %> </center> </div> ");
-
-<% end %>
+	<% end %>
 $("html, body").animate({ scrollTop: $(document).height() }, 1000);

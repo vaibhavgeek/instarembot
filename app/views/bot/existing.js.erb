@@ -1,3 +1,8 @@
-$("#show").html("<%= j render('/bot/partials/initial') %>");
+<% if @login_allow == "true"  %>
+	$("#show").html("<%= j render( 'bot/partials/prev') %>")
+	$("#message_alert").html("<center> It seems you have already logged in. Here is what you can do.</center> ");
+<% else %>
+	$("#show").html("<%= j render('/bot/partials/initial') %>");
+	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
+<% end %>
 $("#popups").hide();
-$("html, body").animate({ scrollTop: $(document).height() }, 1000);

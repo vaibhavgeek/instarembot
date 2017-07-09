@@ -26,10 +26,11 @@ Welcome to Instarem Bot! Are you a returning user to instarem or you would just 
 <div id="typing"> 
  </div>
  <ul id="popups" class="pager">
-   <li><a> FAQ </a></li>
-    <li><a> Offers </a></li>
-    <li><a> Compliance </a></li>
+   <li><%=link_to "Registration" , bot_info_tags_path("Registration") , :remote => "true" %> </a></li>
     <li><a> Transaction </a></li>
+    <li><a> Offers </a></li>
+    <li><a> New Products </a></li>
+    <li><a>FAQ </a></li>
 
   </ul>
  <div class="bottom">
@@ -48,8 +49,10 @@ Welcome to Instarem Bot! Are you a returning user to instarem or you would just 
 
 <% end %>
 </div>
+
+
 <script type="text/javascript">
-var questions_popups = ["Is it safe to send money through Instarem?" , "Sending money through Joint Bank Account Allowed?" , "In which countries money transfer is possible?" , "What are swift codes, ABA & IBAN numbers and sort codes?" , "How can I cancel my transaction?" , "How long will it take to send my transfer through Instarem?" , "At what rate will Instarem transfer my money?"]
+var questions_popups = [ ]
 
 
 $('#popups a').click(function (e) {

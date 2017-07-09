@@ -13,52 +13,59 @@ class BotController < ApplicationController
   def show
   end
 
-  def login
-  email =  request.params[:lg_username]
-  password = request.params[:lg_password] 
-  url = URI("http://stagingapi.instarem.com/v1/api/v1/Login")
-  coder = HTMLEntities.new
-  body_code = "EmailId=" + coder.encode(email) + "&Password=" + coder.encode(password)
-  http = Net::HTTP.new(url.host, url.port)
-  
-  request = Net::HTTP::Post.new(url)
-  request["authorization"] = 'amx 0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh'
-  request["content-type"] = 'application/x-www-form-urlencoded'
-  request["cache-control"] = 'no-cache'
-  request["postman-token"] = '79df4610-6ca9-70bc-01fb-3e7264b2d8f6'
-  request.body = body_code
-  
-  response = http.request(request)
-  parsed = JSON.parse(response.read_body) 
-  puts session[:session_id]
-  @status_m =  parsed["statusMessage"]
-  @status_code = parsed["statusCode"]
-  auth_token = parsed["authToken"]
-   respond_to do |format|    
-    if @status_code == 200 
-      Session.where(:session_id => session[:session_id]).first_or_create.update(:auth_token => auth_token)  
+  def logout
+    Session.where(:session_id => session[:session_id]).destroy_all
+    session[:session_id] = nil
+  end
+  def existing
+    url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPaymentHistory?fromDate=&toDate="
+    puts session[:session_id]
+    session_t = Session.where(:session_id => session[:session_id]).count
+    if session_t !=0 
+       auth_token = Session.where(:session_id => session[:session_id]).first(1).pluck(:auth_token)[0]
+       puts auth_token
+       response = instarem_api(url_send , nil , auth_token)
+       puts response.read_body
+       parsed = JSON.parse(response.read_body) 
+       if parsed["responseData"] != nil
+         @login_allow = "true"
+       end
+    else
+          @login_allow = "false"
     end
-    format.js
-   end
+  end
+
+  def login
+    email =  request.params[:lg_username]
+    password = request.params[:lg_password]     
+    coder = HTMLEntities.new
+    body_code = "EmailId=" + coder.encode(email) + "&Password=" + coder.encode(password)
+    response =  login_instarem("http://stagingapi.instarem.com/v1/api/v1/Login" , body_code)
+    puts response.read_body
+    parsed = JSON.parse(response.read_body) 
+    @status_m =  parsed["statusMessage"]
+    @status_code = parsed["statusCode"]
+    auth_token = parsed["authToken"]
+    respond_to do |format|    
+      puts @status_code
+      if @status_code == 200 
+        Session.where(:session_id => session[:session_id]).first_or_create.update(:auth_token => auth_token)  
+      end
+      format.js
+    end
   end
   
   def previous
-  url = URI("http://stagingapi.instarem.com/v1/api/v1/GetPaymentHistory?fromDate=&toDate=")
-  auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
-  puts auth_token
-  http = Net::HTTP.new(url.host, url.port)
-  request = Net::HTTP::Get.new(url)
-  request["authorization"] = 'amx ' + auth_token.to_s
-  request["content-type"] = 'application/x-www-form-urlencoded'
-  request["cache-control"] = 'no-cache'
-  request["postman-token"] = 'ab84c662-a0cd-c30d-4b66-7114044bfb1f'
-
-  response = http.request(request)
-  parsed = JSON.parse(response.read_body) 
-  @transacts = parsed["responseData"].first(1)
-    respond_to do |format|
-      format.js
-    end
+    uri_send = "http://stagingapi.instarem.com/v1/api/v1/GetPaymentHistory?fromDate=&toDate="
+    auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
+    puts auth_token
+    response = instarem_api(uri_send ,nil ,auth_token)
+    parsed = JSON.parse(response.read_body) 
+    puts parsed
+    @transacts = parsed["responseData"].first(1)
+      respond_to do |format|
+        format.js
+      end
   end
 
   def fx_back
@@ -69,30 +76,18 @@ class BotController < ApplicationController
 
   def fx
     auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
-
-    url = URI("http://api.instarem.com/api/v1/FxRate?from=USD&to=INR&timeOffset=330")
-    http = Net::HTTP.new(url.host, url.port)
-    request = Net::HTTP::Get.new(url)
-    request["authorization"] = 'amx ' + auth_token.to_s
-    request["content-type"] = 'application/x-www-form-urlencoded'
-    request["cache-control"] = 'no-cache'
-    request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
-
-    response = http.request(request)
+    from = request.params["from_curr"]
+    to = request.params["country"]
+    puts from 
+    puts to
+    url_send  = "http://api.instarem.com/api/v1/FxRate?from="+ from +"&to="+to+"&timeOffset=330"
+    response = instarem_api(url_send , nil , auth_token)
     @parsed =  JSON.parse(response.read_body)
   end
   def beneficiary
     auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
-
-    url = URI("http://stagingapi.instarem.com/v1/api/v1/GetPayeeList")
-    http = Net::HTTP.new(url.host, url.port)
-    request = Net::HTTP::Get.new(url)
-    request["authorization"] = 'amx ' + auth_token.to_s
-    request["content-type"] = 'application/x-www-form-urlencoded'
-    request["cache-control"] = 'no-cache'
-    request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
-
-    response = http.request(request)
+    url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPayeeList"
+    response = instarem_api(url_send , nil , auth_token)
     @parsed =  JSON.parse(response.read_body)["responseData"].first(3)
   end
 
@@ -132,8 +127,33 @@ class BotController < ApplicationController
     end
   end
   
-
-
+  def instarem_api(root_url, body_code = nil ,  auth_token = '0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh' )  
+    url = URI(root_url)
+    http = Net::HTTP.new(url.host, url.port)
+    request = Net::HTTP::Get.new(url)
+    request["authorization"] = 'amx ' + auth_token.to_s
+    request["content-type"] = 'application/x-www-form-urlencoded'
+    request["cache-control"] = 'no-cache'
+    request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
+    if body_code 
+      request.body = body_code
+     end 
+    return http.request(request)
+  end
+  
+  def login_instarem (root_url , body_code)
+    url = URI(root_url)
+    http = Net::HTTP.new(url.host, url.port)
+    request = Net::HTTP::Post.new(url)
+    request["authorization"] = 'amx 0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh'
+    request["content-type"] = 'application/x-www-form-urlencoded'
+    request["cache-control"] = 'no-cache'
+    request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
+    if body_code 
+      request.body = body_code
+     end 
+    return http.request(request)
+  end
   private
 
   def message_params
