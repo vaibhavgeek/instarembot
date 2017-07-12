@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'bot/index'
-
+  get 'bot/get_transaction_status'
+  post 'bot/submit_transaction'
   get 'bot/show'
   get 'bot/info_tags'
   get 'bot/create'

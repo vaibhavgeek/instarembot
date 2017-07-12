@@ -73,15 +73,29 @@ class BotController < ApplicationController
     
   end
 
+  def get_transaction_status
+    respond_to do |format|
+      format.js 
+    end
+  end
 
+  def submit_transaction
+    trans_id = "IN" + request.params["ref1"] + request.params["ref2"] + request.params["ref3"] + request.params["ref4"] + request.params["ref5"] + request.params["ref6"]
+    url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPaymentDetails?RefNumber="+trans_id
+    auth_token = check_login
+    response = instarem_api(url_send , nil , auth_token)
+    trans_response = JSON.parse(response.read_body)
+    puts trans_response
+    @trans = trans_response["responseData"]
+  end 
   def fx
-    auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
+    #auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
     from = request.params["from_curr"]
     to = request.params["country"]
     puts from 
     puts to
     url_send  = "http://api.instarem.com/api/v1/FxRate?from="+ from +"&to="+to+"&timeOffset=330"
-    response = instarem_api(url_send , nil , auth_token)
+    response = instarem_api(url_send , nil )
     @parsed =  JSON.parse(response.read_body)
   end
   def beneficiary
@@ -94,7 +108,6 @@ class BotController < ApplicationController
   def start
      @messages = Message.where(:session_id => session[:session_id] )
      @messages.destroy_all
-
   end
 
   def create
@@ -106,25 +119,57 @@ class BotController < ApplicationController
     client = ApiAiRuby::Client.new(
     :client_access_token => '31f5d2bb49ce4577bb5303f72be6ff75'
     )
-  	@message = Message.new(message_params)
-    response = client.text_request @message.message.to_s
-    speech_res = response[:result][:fulfillment][:messages][0][:speech]
-  	if session[:session_id]
+    puts message_params
+    @message = Message.new(message_params)
+  	message_text = request.params["message"]["message"]
+    @message.message = message_text
+    response = client.text_request message_text
+    puts response
+    if response[:result][:fulfillment][:messages][0][:payload]
+      if response[:result][:fulfillment][:messages][0][:payload][:partial] == "showlogin"
+        @render_partial = "login"
+      elsif response[:result][:fulfillment][:messages][0][:payload][:partial] == "showfx"
+        @render_partial = "fx"
+      elsif response[:result][:fulfillment][:messages][0][:payload][:partial] == "showbene"
+        puts check_login
+        if check_login
+          beneficiary
+          @render_partial = "beneficiary"
+        else
+          @render_partial = "login"
+        end
+      elsif response[:result][:fulfillment][:messages][0][:payload][:partial] == "lasttrans"
+         if check_login 
+          previous
+          @render_partial = "lasttrans"
+        else
+          @render_partial = "login"
+        end
+      end
+    else
+        speech_res = response[:result][:fulfillment][:messages][0][:speech]
+    end
+
+
+    if session[:session_id]
   		@message.session_id = session[:session_id]
   	else
   		o = [('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
-		string = (0...50).map { o[rand(o.length)] }.join
+		  string = (0...50).map { o[rand(o.length)] }.join
   		@message.session_id = string
   		session[:session_id] = string
   	end
-  	respond_to do |format|		
-      if @message.save
-        Message.create(:message => speech_res , :session_id => session[:session_id] , :from_id => "bot")
-        format.js 
-      else
-      	flash[:notice] = "Error Occured"
-      end
+  	respond_to do |format|       
+        if speech_res
+          @message.save
+          Message.create(:message => speech_res , :session_id => session[:session_id] , :from_id => "bot")
+          format.js
+        else
+          format.js
+        end
     end
+  
+
   end
   
   def instarem_api(root_url, body_code = nil ,  auth_token = '0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh' )  
@@ -134,11 +179,30 @@ class BotController < ApplicationController
     request["authorization"] = 'amx ' + auth_token.to_s
     request["content-type"] = 'application/x-www-form-urlencoded'
     request["cache-control"] = 'no-cache'
-    request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
+    request["accept-encoding"] = "identity"
     if body_code 
       request.body = body_code
      end 
     return http.request(request)
+  end
+
+  def check_login
+    url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPayeeList"
+    session_t = Session.where(:session_id => session[:session_id]).count
+    if session_t !=0 
+       auth_token = Session.where(:session_id => session[:session_id]).first(1).pluck(:auth_token)[0]
+       puts auth_token
+       response = instarem_api(url_send , nil , auth_token)
+       puts response.read_body
+       parsed = JSON.parse(response.read_body) 
+       if parsed["responseData"] != nil
+         return auth_token
+        else 
+          return false
+       end
+    else
+          return false
+    end
   end
   
   def login_instarem (root_url , body_code)
@@ -146,9 +210,9 @@ class BotController < ApplicationController
     http = Net::HTTP.new(url.host, url.port)
     request = Net::HTTP::Post.new(url)
     request["authorization"] = 'amx 0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh'
+    request["accept-encoding"] = "identity"
     request["content-type"] = 'application/x-www-form-urlencoded'
     request["cache-control"] = 'no-cache'
-    request["postman-token"] = 'e62185c3-7a79-b556-1a43-5d4c7715e767'
     if body_code 
       request.body = body_code
      end 

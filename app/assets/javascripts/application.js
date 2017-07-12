@@ -15,6 +15,7 @@
 //= require bootstrap-select
 //= require jquery_ujs
 //= require turbolinks
+//= require typeahead.bundle
 //= require_tree .
 
 $( document ).ready(function() {

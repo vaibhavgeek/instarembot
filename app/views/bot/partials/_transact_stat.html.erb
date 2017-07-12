@@ -1,0 +1,38 @@
+<li class="message left appeared">
+		 	<div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+					<div class="text_wrapper">
+        <div id="message_alert" class="text-header"> 
+        Please provide your transaction reference id. 
+</div>
+<ul>
+<div class="row">
+             <%= form_tag(bot_submit_transaction_path , :method=>'post', :multipart => true , :id => "login-form" , :remote => "true") do %>
+
+  <span class="refid"> I </span> &nbsp;
+  <span class="refid"> N </span> &nbsp;
+  	<label for="ref1" style="display: none;" class="sr-only">1</label>
+	<input type="text" name="ref1" id="ref1" class="refid"  maxlength="1" > &nbsp;
+    
+    <label for="ref2" style="display: none;" class="sr-only">2</label>
+	<input type="text" name="ref2" id="ref2" class="refid"  maxlength="1" > &nbsp;
+          
+    <label for="ref3" style="display: none;" class="sr-only">3</label>
+  	<input type="text" name="ref3" id="ref3" class="refid"  maxlength="1" > &nbsp;
+    
+    <label for="ref4" style="display: none;" class="sr-only">4</label>
+  	<input type="text" name="ref4" id="ref4" class="refid"  maxlength="1" > &nbsp;
+    
+    <label for="ref5" style="display: none;" class="sr-only">5</label>
+  	<input type="text" name="ref5" id="ref5"  class="refid" maxlength="1" > &nbsp;
+    
+    <label for="ref6" style="display: none;" class="sr-only">6</label>
+  	<input type="text" name="ref6" id="ref6" class="refid" maxlength="1" > &nbsp;
+  
+  <%= button_tag(:type => "submit" , :class => "pull-right")  do %> Check <% end %>
+<% end %>
+</div>
+
+</ul>
+
+</div>
+</li>

@@ -1,6 +1,20 @@
-$('#show').append($("#message_input").val());
-$('#show').html("<%=j render @messages %>");
+<% if @render_partial == "login" %>
+	$("#show").append("<%= j render('/bot/partials/initial') %>");
+	$("#display_message").html($("#message_input").val());
+<% elsif @render_partial == "fx" %>
+	$("#show").append("<%= j render('bot/partials/fx_back') %>");
+	$("#display_message_fx").html($("#message_input").val());
+<% elsif @render_partial == "beneficiary" %>
+	$("#show").append("<%= j render('bot/partials/bene') %>");
+	$("#display_message_fx").html($("#message_input").val());
+<% elsif @render_partial == "lasttrans" %>
+	$("#show").append("<%= j render('bot/partials/transact') %>");
+	$("#display_message_fx").html($("#message_input").val());
+<% else %>
+$('#show').append("<%=j render @messages.last(2) %>");
+
+<% end %>
+
 $("#message_input").val('');
-$("#typing").hide();
 $("html, body").animate({ scrollTop: $(document).height() }, 1000);
 

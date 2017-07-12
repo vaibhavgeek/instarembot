@@ -1,5 +1,11 @@
   
-
+ <li class="message right appeared">
+      <div class="text_wrapper">
+        <div id="display_message_fx" class="text">
+        Current Fx Exchange Rates
+        </div>
+      </div>
+     </li>
 
 
    <li class="message left appeared">
@@ -15,14 +21,14 @@
                           
                         <label for="country_1" style="display: none;" class="sr-only"></label>
 
-                             <%= select_tag "from_curr" , options_for_select([["US Dollar", "USD"], ["Australian Dollar", "AUD"] , ["Hong Kong Dollar" , "HKD"] , ["Singapore Dollar" , "SD"]]) ,:id => "country_1" , :class => "selectpicker" %>  
+                             <%= select_tag "from_curr" , options_for_select([["US Dollar (USD)", "USD"], ["Australian Dollar (AUD)", "AUD"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["Singapore Dollar (SD)" , "SD"]]) ,:id => "country_1" , :class => "selectpicker dropdown" %>  
 
 
                             <div class="to_from">To</div>
                             <div class="dropdown">
                            <label for="country_2" style="display: none;" class="sr-only"></label>
                              
-<%= select_tag "country" , options_for_select([["US Dollar", "USD"], ["Australian Dollar", "AUD"] , ["Hong Kong Dollar" , "HKD"] , ["Singapore Dollar" , "SD"] , ["Bangladeshi Taka" , "BDT"] , ["Euro" , "EUR"] , ["British Pound" , "GBP"] , ["Hong Kong Dollar" , "HKD"] , ["IndianEsian Rupiah" , "IDR"] , ["Indian Ruppee" , "INR"] , ["SriLankan Ruppee" , "LKR"] , ["Malaysian Ringgit" , "MYR"] , ["Nepalese Ruppee" , "NPR"] , ["Philleppine Pese" , "PHP"] , ["Thai Bhat" , "THB"] , ["Vietnamese Dong", "VND"]]) , :id => "country_2" , :class => "selectpicker" , :"data-live-search" => "true" %>
+<%= select_tag "country" , options_for_select([["US Dollar (USD)", "USD"], ["Australian Dollar (AUD)", "AUD"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["Singapore Dollar (SD)" , "SD"] , ["Bangladeshi Taka (BT)" , "BDT"] , ["Euro (EUR)" , "EUR"] , ["British Pound (GBP)" , "GBP"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["IndianEsian Rupiah (IDR)" , "IDR"] , ["Indian Ruppee (INR)" , "INR"] , ["SriLankan Ruppee (LKR)" , "LKR"] , ["Malaysian Ringgit (MYR)" , "MYR"] , ["Nepalese Ruppee (NPR)" , "NPR"] , ["Philleppine Pese (PHP)" , "PHP"] , ["Thai Bhat (THB)" , "THB"] , ["Vietnamese Dong (VND)", "VND"]]) , :id => "country_2" , :class => "selectpicker dropup" , :"data-live-search" => "true"  %>
                             </div>
                         </li>
 

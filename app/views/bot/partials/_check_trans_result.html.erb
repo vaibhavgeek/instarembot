@@ -1,0 +1,49 @@
+<li class="message left appeared">
+					<div class="avatar"> <%=image_tag "tackie-big.png" %> </div>
+					<div class="text_wrapper">
+						<div class="text-header">Transaction RefId : <%= @trans["refNumber"] %></div>
+						<ul>
+							<li id="status-li">
+								<div class="row flag">
+									<div class="col-xs-5 flag-row" >
+										
+										<%= image_tag ("down-arrow.png") , :class => "down-arrow" %>
+									</div>
+									<div class="col-xs-7">
+										<div class="from-val val">
+											<%= @trans["sendingAmount"] %> <span><%= @trans["sendingCurrency"] %></span>
+										</div>
+										<div class="to-val val">
+											<%= @trans["recvAmount"] %> <span><%= @trans["recvCurrency"] %></span>	
+										</div>
+									</div>
+								</div>
+								<div class="date-time">
+									<div class="date">
+										<%= @trans["transferDate"].split(" ")[0] %>
+									</div>
+									<div class="time">
+										<%= @trans["transferDate"].split(" ")[1] %>
+									</div>
+								</div>
+								<div class="status-div">
+									<div class="head">Beneficiary</div>
+									<div class="val"> <%= @trans["receipientName"] %> </div>
+								</div>
+								<div class="status-div">
+									<div class="head">FX Rate</div>
+									<div class="val"><%= @trans["fxRate"] %></div>
+								</div>
+								<div class="status-div">
+									<div class="head">Status</div>
+									<div class="val"><%= @trans["status"] %></div>
+								</div>
+							</li> 
+							<li id="clear-pass-li">
+							<div>Write to us</div>
+								<div>Satisfied</div>
+							</li> 
+						</ul>
+					</div> <br/>
+				</li>
+

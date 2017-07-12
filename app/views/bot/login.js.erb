@@ -1,11 +1,11 @@
 
 	<% if @status_code == 200 %> 
-	$("#append_after_login").html("<%= j render( 'bot/partials/prev') %>")
+	$("#show").append("<%= j render( 'bot/partials/prev') %>")
 	$("#message_alert").html("<center> <%= @status_m.html_safe %> </center> ");
 
 	<% else %> 
 
-	$("#append_after_login").html(" ");
+	$("#show").append("Cannot Login");
 	$("#message_alert").html("<div class ='alert alert-danger '> <center>  You cannot login because of invalid credentials </center> </div> ");
 
 	<% end %>
