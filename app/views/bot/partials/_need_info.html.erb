@@ -1,0 +1,17 @@
+ <ul id="popups" class="pager">
+	 <% if check_login %>
+	<li>  <%= link_to "Menu" , bot_existing_path , :remote => true  %> </li>
+     <% else %>
+	<li>  <%= link_to "Login" , bot_existing_path , :remote => true  %> </li>
+
+    <% end %>
+    <li><%= link_to "Miscellaneous" , bot_need_transact_path , :remote => true  %></li>
+    <li><a> Transactions </a></li>
+    <li><a> Registration </a></li>
+    <li><a>Offers </a></li>
+    <% if check_login %>
+   <li> <%=link_to "Logout" , bot_logout_path , :method => "post" , :remote => "true" %> </a></li>
+    <% end %>
+    </ul>
+    <div id="renderer"> 
+    </div>

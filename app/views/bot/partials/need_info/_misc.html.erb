@@ -1,0 +1,48 @@
+<li class="message left appeared">
+            <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+                    <div class="text_wrapper">
+                        <div class="text-header">Please type your query and I will help you on the way.</div>
+                       
+                    </div>
+                </li>
+                
+
+<script type="text/javascript">
+  $( function() {
+    var availableTags = [
+            "What is Instarem?",
+            "What is the address of Australia Office?",
+            "Can My Company Open An Account With Instarem?",
+            "Which documents required for registration?",
+            "Is there any way I can use someone else's account?",
+            "Am asking your policy around holding a customers' details after the client has ceased to be your client?",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $( "#message_input" ).on( "autocompleteselect", function( event, ui ) {} );
+
+        $( "#message_input" ).autocomplete({
+            source: availableTags,
+            position: {  collision: "flip"  } ,
+            select: function( event, ui ) {
+             
+
+            }
+
+        });
+  } );
+</script>

@@ -14,6 +14,7 @@ gem "font-awesome-rails"
 gem "htmlentities"
 gem 'api-ai-ruby'
 gem 'bootstrap-select-rails'
+gem 'jquery-ui-rails'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'

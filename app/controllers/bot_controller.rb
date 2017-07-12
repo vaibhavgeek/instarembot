@@ -4,6 +4,7 @@ require 'htmlentities'
   
 class BotController < ApplicationController
 
+helper_method :check_login
   def index
   	@message = Message.new
   	@messages = Message.where(:session_id => session[:session_id] ).order(created_at: :asc)
