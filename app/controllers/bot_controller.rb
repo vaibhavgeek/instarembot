@@ -106,6 +106,16 @@ helper_method :check_login
     @parsed =  JSON.parse(response.read_body)["responseData"].first(3)
   end
 
+  def search_bene
+    search_q = request.params["search_tag"].downcase
+    auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
+    url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPayeeList"
+    response = instarem_api(url_send , nil , auth_token)
+    @parsed =  JSON.parse(response.read_body)["responseData"].map { |a| a if a["firstName"].to_s.downcase.include? search_q  }.compact
+    puts @parsed
+  end
+
+
   def start
      @messages = Message.where(:session_id => session[:session_id] )
      @messages.destroy_all

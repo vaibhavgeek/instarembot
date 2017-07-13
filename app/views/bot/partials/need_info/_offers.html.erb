@@ -20,7 +20,10 @@
 
         $( "#message_input" ).autocomplete({
             source: availableTags,
-            position: {  collision: "flip"  } ,
+             position: {
+            my: "left bottom",
+            at: "left top",
+        } ,
             select: function( event, ui ) {
              
 

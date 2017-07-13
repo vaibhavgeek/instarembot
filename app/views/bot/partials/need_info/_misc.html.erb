@@ -33,11 +33,13 @@
 "Why Use Instarem Over A Bank?",
 "Does Instarem Offer Forward Contracts?"
         ];
-        $( "#message_input" ).on( "autocompleteselect", function( event, ui ) {} );
 
         $( "#message_input" ).autocomplete({
             source: availableTags,
-            position: {  collision: "flip"  } ,
+             position: {
+            my: "left bottom",
+            at: "left top",
+        } ,
             select: function( event, ui ) {
              
 
