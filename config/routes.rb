@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get 'bot/index'
   get 'bot/need_transact'
+   get 'bot/need_regis'
+  get 'bot/need_misc'
+  get 'bot/need_offers'
+
+
   get 'bot/get_transaction_status'
   post 'bot/submit_transaction'
   get 'bot/show'
