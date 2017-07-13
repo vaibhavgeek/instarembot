@@ -36,16 +36,22 @@ helper_method :check_login
     end
   end
 
-  def login
+  def login_response()
     email =  request.params[:lg_username]
     password = request.params[:lg_password]     
     coder = HTMLEntities.new
     body_code = "EmailId=" + coder.encode(email) + "&Password=" + coder.encode(password)
     response =  login_instarem("http://stagingapi.instarem.com/v1/api/v1/Login" , body_code)
     puts response.read_body
-    parsed = JSON.parse(response.read_body) 
+    parsed = JSON.parse(response.read_body)
+    return parsed
+  end
+
+  def login
+    login_response() 
     @status_m =  parsed["statusMessage"]
     @status_code = parsed["statusCode"]
+    @user_icon = parsed["picture"]
     auth_token = parsed["authToken"]
     respond_to do |format|    
       puts @status_code
