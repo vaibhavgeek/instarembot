@@ -1,0 +1,64 @@
+<li class="message left appeared">
+            <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+                    <div class="text_wrapper">
+                        <div class="text-header">Please type your query and I will help you on the way.</div>
+                       
+                    </div>
+                </li>
+                
+
+<script type="text/javascript">
+  $( function() {
+    var availableTags = [
+           "How can I add payee ?",
+"CAN I SEND MONEY THROUGH SOMEBODY ELSE'S BANK ACCOUNT?",
+"WHAT IF THE RECEIVER DOESN'T HAVE A BANK ACCOUNT?",
+"how can I cancel the transaction?",
+"Can I change payee details after Transaction is completed or in Process?",
+"how can I check the status of my transaction?",
+"DO I NEED TO CONTACT INSTAREM WHEN I MAKE A PAYMENT?",
+"WHAT COUNTRIES CAN I TRANSFER MONEY TO AND FROM?",
+"I WANT TO FUND MY TRANSACTION THROUGH A CREDIT CARD, IS THIS POSSIBLE?",
+"HOW LONG WILL IT TAKE TO SEND MY TRANSFER THROUGH INSTAREM?",
+"HOW DO I CREATE A TRANSFER WITH INSTAREM?",
+"WHAT IS IFSC CODE? I DON'T HAVE MY RECEIVERS IFSC CODE?",
+"AT WHAT RATE WILL INSTAREM TRANSFER MY MONEY?",
+"WHEN WON'T I RECEIVE AN INTERBANK RATE FROM INSTAREM?",
+"What is the Minimum Amount I have to transfer using Instarem?",
+"Can I add multiple Payees?",
+"Is there a need to provide transaction listings after providing bank statement?",
+"Is there any notification sent to payee upon receiving funds in his/her account?",
+"What if Payee does not have bank account?",
+"What Information I need to Provide for Payee?",
+"Do I have to provide any documents for Payee?",
+"Can payee receive funds in cash?",
+"Does Payee have to register on Instarem to receive Money?",
+"Can Payee Check status of the Transaction?",
+"Can I submit Transaction Listing from Bank?",
+"Can Payee Check status of the Transaction?",
+"Can A Third Party Deposit Money Into My Account To Be Transferred?",
+"What is Third Party Transfer?",
+"I've transferred funds to the Philippines and I need to track it. Please give me a remittance advice.",
+"Can I check status of my transactions?",
+"How Long Until The Recipient Receives My Transfer From Instarem?",
+"How Do I Deposit Money With Instarem?",
+"how much maximum amount Can I transfer with INstarem?",
+"Can I use cash to transfer?",
+"What Happens If My Payment Is Rejected?",
+"I Made An Error On My Payment Details, Can This Be Corrected?",
+"Can I fix an exchange rate with instarem?",
+"Do I Need To Deposit Funds Before I Make A Transfer With Instarem?"
+        ];
+        $( "#message_input" ).on( "autocompleteselect", function( event, ui ) {} );
+
+        $( "#message_input" ).autocomplete({
+            source: availableTags,
+            position: {  collision: "flip"  } ,
+            select: function( event, ui ) {
+             
+
+            }
+
+        });
+  } );
+</script>

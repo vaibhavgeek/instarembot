@@ -1,0 +1,31 @@
+<li class="message left appeared">
+            <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+                    <div class="text_wrapper">
+                        <div class="text-header">Please type your query and I will help you on the way.</div>
+                       
+                    </div>
+                </li>
+                
+
+<script type="text/javascript">
+  $( function() {
+    var availableTags = [
+           "Can I refer multiple people?" ,
+"How do I use coupon code for referring a friend?" ,
+"I did not receive credit for referring my friend.",
+"My friend did not receive credit of AUD 5.",
+"What offers do I get if I Refer My friend, relative or colleague to make transfer using Instarem?"
+        ];
+        $( "#message_input" ).on( "autocompleteselect", function( event, ui ) {} );
+
+        $( "#message_input" ).autocomplete({
+            source: availableTags,
+            position: {  collision: "flip"  } ,
+            select: function( event, ui ) {
+             
+
+            }
+
+        });
+  } );
+</script>

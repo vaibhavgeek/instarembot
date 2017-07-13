@@ -32,12 +32,14 @@
 
           <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="Password"></li> 
           <li id="clear-pass-li">
-  	<div><button onclick="document.getElementById('login-form').reset(); return false">
-          	Clear </button>
+  	<div><%= button_tag(:type => "submit")  do %>
+          Login
+          <% end %>
           	</div>
-          	<div><%= button_tag(:type => "submit")  do %>
-   				Login
-   				<% end %></div>
+          	<div>
+              <button onclick="document.getElementById('login-form').reset(); return false">
+            Clear </button>
+            </div>
           </li> 
         </ul>
       </div>

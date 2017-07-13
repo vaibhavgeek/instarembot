@@ -1,0 +1,43 @@
+<li class="message left appeared">
+            <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+                    <div class="text_wrapper">
+                        <div class="text-header">Please type your query and I will help you on the way.</div>
+                       
+                    </div>
+                </li>
+                
+
+<script type="text/javascript">
+  $( function() {
+    var availableTags = [
+           "Why is my Account not activated?",
+"how many documents are required for registration with instarem?",
+"What are the eligibility criteria to activate Account?",
+"WHY DO YOU NEED MY IDENTITY VERIFICATION?",
+"what documents i need to provide to get my account activated?",
+"What all information I need to provide to get my account activated?",
+"Can mobile bill serve the purpose of utility bill?",
+"Why does my account require to be activated once I register?",
+"How can I register with instarem?",
+"If I do not have Passport, Can I still register with Instarem?",
+"Do I have to pay any fees to register with Instarem?",
+"How much time it takes to activate my account?",
+"How to verify account?",
+"what utility documents I can submit?",
+"how is verification done?",
+"WHO CAN CERTIFY MY DOCUMENTS?",
+"What Information Do I Need To Open An Account With Instarem?"
+        ];
+        $( "#message_input" ).on( "autocompleteselect", function( event, ui ) {} );
+
+        $( "#message_input" ).autocomplete({
+            source: availableTags,
+            position: {  collision: "flip"  } ,
+            select: function( event, ui ) {
+             
+
+            }
+
+        });
+  } );
+</script>
