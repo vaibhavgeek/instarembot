@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get 'bot/need_misc'
   get 'bot/need_offers'
   post 'bot/search_bene'
-
+  post 'bot/send_email'
+  get 'bot/send_email_tem'
   get 'bot/get_transaction_status'
   post 'bot/submit_transaction'
   get 'bot/show'

@@ -28,7 +28,7 @@
                             <div class="dropdown">
                            <label for="country_2" style="display: none;" class="sr-only"></label>
                              
-<%= select_tag "country" , options_for_select([["US Dollar (USD)", "USD"], ["Australian Dollar (AUD)", "AUD"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["Singapore Dollar (SD)" , "SD"] , ["Bangladeshi Taka (BT)" , "BDT"] , ["Euro (EUR)" , "EUR"] , ["British Pound (GBP)" , "GBP"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["IndianEsian Rupiah (IDR)" , "IDR"] , ["Indian Ruppee (INR)" , "INR"] , ["SriLankan Ruppee (LKR)" , "LKR"] , ["Malaysian Ringgit (MYR)" , "MYR"] , ["Nepalese Ruppee (NPR)" , "NPR"] , ["Philleppine Pese (PHP)" , "PHP"] , ["Thai Bhat (THB)" , "THB"] , ["Vietnamese Dong (VND)", "VND"]]) , :id => "country_2" , :class => "selectpicker dropup" , :id => "item-selector" , :"data-live-search" => "true"  %>
+<%= select_tag "country" , options_for_select([["Select Currency" , "INR"],["US Dollar (USD)", "USD"], ["Australian Dollar (AUD)", "AUD"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["Singapore Dollar (SD)" , "SD"] , ["Bangladeshi Taka (BT)" , "BDT"] , ["Euro (EUR)" , "EUR"] , ["British Pound (GBP)" , "GBP"] , ["Hong Kong Dollar (HKD)" , "HKD"] , ["IndianEsian Rupiah (IDR)" , "IDR"] , ["Indian Ruppee (INR)" , "INR"] , ["SriLankan Ruppee (LKR)" , "LKR"] , ["Malaysian Ringgit (MYR)" , "MYR"] , ["Nepalese Ruppee (NPR)" , "NPR"] , ["Philleppine Pese (PHP)" , "PHP"] , ["Thai Bhat (THB)" , "THB"] , ["Vietnamese Dong (VND)", "VND"]]) , :id => "country_2" , :class => "selectpicker dropup" , :"data-live-search" => "true"  %>
                             </div>
                         </li>
 
@@ -62,12 +62,10 @@
 
 </script>
 <script type="text/javascript">
-  $('.selectpicker').on('hidden.bs.select', function (e) {
-  alert(e.target.value);
-  var itemSelector2 = $("#item-selector-2");
-  var itemSelector1 = $("#item-selector-1");
-
-  var itemSelectorOption = $('#item-selector-1').find('option[value="'+ e.target.value +'"]');
+  $('#country_1').on('hidden.bs.select', function (e) {
+  var itemSelector2 = $("#country_2");
+  var itemSelector1 = $("#country_1");
+  var itemSelectorOption = $('#country_2').find('option[value="'+ e.target.value +'"]');
   itemSelectorOption.remove();
   itemSelector2.selectpicker('refresh');
 });
