@@ -1,19 +1,31 @@
-<% if message.from_id == "bot" %> 
-<li class="message left appeared">
-  <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+<div>	
+	<% if message.from_id == "bot" %> 
+		<li class="message left appeared">
+		  	<div class="avatar"> <%= image_tag "tackie-big.png" %>
+		  	</div>	
+			<div class="text_wrapper">
+		    	<div class="text-header">
+		    		<div id="typing"></div>
+					<%= message.message %>
+					
+				</div>
+			</div>
+		</li>
+	<% else %>
+		<li class="message right appeared">
+			<div class="avatar"> <%= image_tag "user_reply.png" %> </div>	
+			<div class="text_wrapper">
+				<div class="text">
+					<%= message.message %>
+				</div>
+			</div>
+		</li>
+	<% end %>
 
-<div class="text_wrapper">
-        <div class="text-header">
-<%= message.message %> </div>
+	<script type="text/javascript">
+ 		var inputBox = document.getElementById('message_input');
+		inputBox.onkeyup = function(){
+    		document.getElementById('typing').innerHTML = "Typing...";
+		}
+ 	</script>
 </div>
-</li>
-</div>
-<% else %>
-<li class="message right appeared">
-		 	<div class="text_wrapper">
-		 		<div class="text">
-<%= message.message %> </div>
-</div>
-</li>
-
-<% end %>

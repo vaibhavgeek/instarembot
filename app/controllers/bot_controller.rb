@@ -45,7 +45,7 @@ helper_method :check_login
     else
           @login_allow = "false"
     end
-  end
+  end    
 
 # this is a post request of login which would take place. 
   def login
@@ -55,7 +55,7 @@ helper_method :check_login
     body_code = "EmailId=" + coder.encode(email) + "&Password=" + coder.encode(password)
     response =  login_instarem("http://stagingapi.instarem.com/v1/api/v1/Login" , body_code)
     puts response.read_body
-    parsed = JSON.parse(response.read_body) 
+    parsed = JSON.parse(response.read_body)
     @status_m =  parsed["statusMessage"]
     @status_code = parsed["statusCode"]
     auth_token = parsed["authToken"]
@@ -85,8 +85,6 @@ helper_method :check_login
   end
 
   def fx_back
-
-    
   end
 
 # it shows the transaction status in panel
@@ -141,9 +139,15 @@ helper_method :check_login
   def create
   end
 
+  def type
+
+  end
+
   def new
     @messages = Message.where(:session_id => session[:session_id]).order(created_at: :asc)
     
+    type()
+
     client = ApiAiRuby::Client.new(
     :client_access_token => '31f5d2bb49ce4577bb5303f72be6ff75'
     )
@@ -152,6 +156,9 @@ helper_method :check_login
   	message_text = request.params["message"]["message"]
     @message.message = message_text
     response = client.text_request message_text
+
+    type()
+
     puts response
     if response[:result][:fulfillment][:messages][0][:payload]
       if response[:result][:fulfillment][:messages][0][:payload][:partial] == "showlogin"
