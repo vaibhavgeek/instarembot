@@ -3,7 +3,7 @@ development:
   encoding: utf8
   database: project_opment
   pool: 5
-  username: instabot
+  username: vaibhavm
   password: 
 
 test: &TEST
@@ -11,7 +11,7 @@ test: &TEST
   encoding: utf8
   database: project_t
   pool: 5
-  username: instabot
+  username: vaibhavm
   password:
 
 production:

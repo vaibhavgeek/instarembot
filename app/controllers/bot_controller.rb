@@ -9,16 +9,21 @@ helper_method :check_login
 # this is index action used for mainly display of messages  (messages/_message.html.erb and bot/index.html.erb)
   def index
   	@message = Message.new
-  	@messages = Message.where(:session_id => session[:session_id]).order(created_at: :asc)
+  	# Message (with capital M )is a model but it is assigned to a new object called @message 
+    @messages = Message.where(:session_id => session[:session_id]).order(created_at: :asc)
   end
 
   def show
   end
+  
+  # this is a send email which loads js file to append the correct partial
   def send_email_tem
     respond_to do |format|
       format.js
     end
   end
+
+  # this calls the aciotnmailer to send an email
   def send_email
     SendToPersonMailer.sample_email(request.params).deliver_later
   end
@@ -104,6 +109,8 @@ helper_method :check_login
     puts trans_response
     @trans = trans_response["responseData"]
   end 
+
+  #this shouls the fx transaction rate of to and from curenvcy
   def fx
     #auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
     from = request.params["from_curr"]
@@ -114,13 +121,15 @@ helper_method :check_login
     response = instarem_api(url_send , nil )
     @parsed =  JSON.parse(response.read_body)
   end
+
+  # this shows the beneficiary details of the person and list them all from a JSON format
   def beneficiary
     auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
     url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPayeeList"
     response = instarem_api(url_send , nil , auth_token)
     @parsed =  JSON.parse(response.read_body)["responseData"].first(3)
   end
-
+  # this is post request which gets called when the user tries to search the his own benefeciary details
   def search_bene
     search_q = request.params["search_tag"].downcase
     auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
@@ -130,7 +139,7 @@ helper_method :check_login
     puts @parsed
   end
 
-
+# this is a place where when you start the messaging again. It deletes the previous messages it gets called when need infomration is clicked
   def start
      @messages = Message.where(:session_id => session[:session_id] )
      @messages.destroy_all
@@ -151,6 +160,7 @@ helper_method :check_login
     client = ApiAiRuby::Client.new(
     :client_access_token => '31f5d2bb49ce4577bb5303f72be6ff75'
     )
+    # this is an API Ai client
     puts message_params
     @message = Message.new(message_params)
   	message_text = request.params["message"]["message"]
@@ -161,6 +171,7 @@ helper_method :check_login
 
     puts response
     if response[:result][:fulfillment][:messages][0][:payload]
+      # it checks if it contains any payload if it does, we need to show partial instead of message
       if response[:result][:fulfillment][:messages][0][:payload][:partial] == "showlogin"
         @render_partial = "login"
       elsif response[:result][:fulfillment][:messages][0][:payload][:partial] == "showfx"
@@ -206,7 +217,8 @@ helper_method :check_login
   
 
   end
-  
+ 
+ # this is api code which is called when we need get request to instarem api  
   def instarem_api(root_url, body_code = nil ,  auth_token = '0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh' )  
     url = URI(root_url)
     http = Net::HTTP.new(url.host, url.port)
@@ -221,6 +233,7 @@ helper_method :check_login
     return http.request(request)
   end
 
+# this is called to check login, if true the user is logged in otherwise he is not
   def check_login
     url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPayeeList"
     session_t = Session.where(:session_id => session[:session_id]).count
@@ -239,7 +252,8 @@ helper_method :check_login
           return false
     end
   end
-  
+ 
+ # this is api for login 
   def login_instarem (root_url , body_code)
     url = URI(root_url)
     http = Net::HTTP.new(url.host, url.port)

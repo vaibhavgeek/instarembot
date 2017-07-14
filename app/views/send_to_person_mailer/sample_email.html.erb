@@ -6,7 +6,7 @@
   <body>
     <h1>Customer Request</h1>
     <p>
-    <%= @body_details.message %>
+    <%= JSON.parse(@body_details)["message"] %>
       
     </p>
   </body>
