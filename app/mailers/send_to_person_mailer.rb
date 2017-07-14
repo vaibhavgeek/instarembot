@@ -1,0 +1,2 @@
+class SendToPersonMailer < ApplicationMailer
+end

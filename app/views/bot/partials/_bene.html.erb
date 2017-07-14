@@ -16,10 +16,16 @@
 							<% end %>
 							<li>
 								<div class="row">
+							<%= form_tag(bot_search_bene_path , :method=>'post', :multipart => true , :class => "text-left" , :id => "login-form" , :remote => "true") do %>
+
 									<div class="input-group">
-									<input type="text" class="form-control b-search" placeholder="Search for...">
-									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+									<input name="search_tag" type="text" class="form-control b-search" placeholder="Search for...">
+									<%= button_tag(:type => "submit" , :class => "border:none;")   do %>
+          	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          		<% end %>
+
 								</div>
+								<% end %>
 								</div>
 								
 							</li> 

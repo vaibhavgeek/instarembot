@@ -4,7 +4,7 @@ Rails.application.routes.draw do
    get 'bot/need_regis'
   get 'bot/need_misc'
   get 'bot/need_offers'
-
+  post 'bot/search_bene'
 
   get 'bot/get_transaction_status'
   post 'bot/submit_transaction'
