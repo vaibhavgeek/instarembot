@@ -10,12 +10,7 @@
 	</li>
 <% else %>
 	<li class="message right appeared">
-		<% if @user_icon == nil %>
-			<div class="avatar"> <%= image_tag "user_reply.png" %> </div>
-		<% else %>
-			<div class="avatar"> <%= image_tag @user_icon %> </div>
-		<% end %>
-	
+		<div class="avatar"> <%= image_tag "user_reply.png" %> </div>	
 		<div class="text_wrapper">
 			<div class="text">
 				<%= message.message %>

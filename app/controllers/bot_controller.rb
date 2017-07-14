@@ -34,9 +34,9 @@ helper_method :check_login
     else
           @login_allow = "false"
     end
-  end
+  end    
 
-  def login_response()
+  def login
     email =  request.params[:lg_username]
     password = request.params[:lg_password]     
     coder = HTMLEntities.new
@@ -44,14 +44,8 @@ helper_method :check_login
     response =  login_instarem("http://stagingapi.instarem.com/v1/api/v1/Login" , body_code)
     puts response.read_body
     parsed = JSON.parse(response.read_body)
-    return parsed
-  end
-
-  def login
-    login_response() 
     @status_m =  parsed["statusMessage"]
     @status_code = parsed["statusCode"]
-    @user_icon = parsed["picture"]
     auth_token = parsed["authToken"]
     respond_to do |format|    
       puts @status_code
@@ -76,8 +70,6 @@ helper_method :check_login
   end
 
   def fx_back
-
-    
   end
 
   def get_transaction_status
