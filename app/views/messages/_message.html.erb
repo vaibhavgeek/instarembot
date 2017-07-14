@@ -1,13 +1,11 @@
 <div>	
 	<% if message.from_id == "bot" %> 
 		<li class="message left appeared">
-		  	<div class="avatar"> <%= image_tag "tackie-big.png" %>
-		  	</div>	
+		  	<div class="avatar"> <%= image_tag "tackie-big.png" %></div>	
 			<div class="text_wrapper">
 		    	<div class="text-header">
-		    		<div id="typing"></div>
+		    		<div id="typing"> Typing.... </div>
 					<%= message.message %>
-					
 				</div>
 			</div>
 		</li>

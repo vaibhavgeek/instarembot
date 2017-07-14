@@ -14,14 +14,17 @@ helper_method :check_login
 
   def show
   end
+
   def send_email_tem
     respond_to do |format|
       format.js
     end
   end
+
   def send_email
     SendToPersonMailer.sample_email(request.params).deliver_later
   end
+
 # logout would lead to deletion of all the sessions
   def logout
     Session.where(:session_id => session[:session_id]).destroy_all
@@ -34,16 +37,16 @@ helper_method :check_login
     puts session[:session_id]
     session_t = Session.where(:session_id => session[:session_id]).count
     if session_t !=0 
-       auth_token = Session.where(:session_id => session[:session_id]).first(1).pluck(:auth_token)[0]
-       puts auth_token
-       response = instarem_api(url_send , nil , auth_token)
-       puts response.read_body
-       parsed = JSON.parse(response.read_body) 
-       if parsed["responseData"] != nil
-         @login_allow = "true"
-       end
+      auth_token = Session.where(:session_id => session[:session_id]).first(1).pluck(:auth_token)[0]
+      puts auth_token
+      response = instarem_api(url_send , nil , auth_token)
+      puts response.read_body
+      parsed = JSON.parse(response.read_body) 
+      if parsed["responseData"] != nil
+        @login_allow = "true"
+      end
     else
-          @login_allow = "false"
+      @login_allow = "false"
     end
   end    
 
@@ -103,7 +106,8 @@ helper_method :check_login
     trans_response = JSON.parse(response.read_body)
     puts trans_response
     @trans = trans_response["responseData"]
-  end 
+  end
+
   def fx
     #auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
     from = request.params["from_curr"]
@@ -114,6 +118,7 @@ helper_method :check_login
     response = instarem_api(url_send , nil )
     @parsed =  JSON.parse(response.read_body)
   end
+
   def beneficiary
     auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
     url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPayeeList"
@@ -140,21 +145,31 @@ helper_method :check_login
   end
 
   def type
+  end
 
+  def message_params
+    params.require(:message).permit(:message, :session_id , :from_id)
   end
 
   def new
+    # A collection of messages
     @messages = Message.where(:session_id => session[:session_id]).order(created_at: :asc)
     
     type()
-
+    # Call Api.ai client with auth ID of instarem
     client = ApiAiRuby::Client.new(
     :client_access_token => '31f5d2bb49ce4577bb5303f72be6ff75'
     )
-    puts message_params
+
+    # message is an object of Message model
     @message = Message.new(message_params)
+    puts request.params
+
+    # Get User's reply
   	message_text = request.params["message"]["message"]
     @message.message = message_text
+
+    # Call Api.ai client with requesting response in text, message_text is a param
     response = client.text_request message_text
 
     type()
@@ -185,7 +200,6 @@ helper_method :check_login
         speech_res = response[:result][:fulfillment][:messages][0][:speech]
     end
 
-
     if session[:session_id]
   		@message.session_id = session[:session_id]
   	else
@@ -197,14 +211,13 @@ helper_method :check_login
   	respond_to do |format|       
         if speech_res
           @message.save
+          sleep(4)
           Message.create(:message => speech_res , :session_id => session[:session_id] , :from_id => "bot")
           format.js
         else
           format.js
         end
     end
-  
-
   end
   
   def instarem_api(root_url, body_code = nil ,  auth_token = '0O1QCg+UcMLTHdfxHJllzWiUfWTw520EMifGt72vTDmRgMXZKJsx001K2Svelvuh' )  
@@ -255,7 +268,4 @@ helper_method :check_login
   end
   private
 
-  def message_params
-  	params.require(:message).permit(:message, :session_id , :from_id)
-  end 
 end
