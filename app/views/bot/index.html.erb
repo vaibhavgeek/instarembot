@@ -1,47 +1,43 @@
 <div >
-<ul class="messages" id="iframe">
-     <li class="message left appeared">
-  <div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
-<div class="text_wrapper">
-        <div class="text-header">
-Welcome to Instarem Bot! Are you a returning user to instarem or you would just inquire about the frequently asked questions? </div>  
-<ul>
-<li>
- <%= link_to bot_start_path , method: :post , :remote => "true"   do %> 
-<center> Need Information </center>  <% end %> 
+	<ul class="messages" id="iframe">
+    	<li class="message left appeared">
+  			<div class="avatar"> <%= image_tag "tackie-big.png" %> </div>
+			<div class="text_wrapper">
+        		<div class="text-header">
+					Welcome to Instarem Bot! Are you a returning user to instarem or you would just inquire about the frequently asked questions? </div>  
+				<ul>
+					<li>
+ 						<%= link_to bot_start_path , method: :post , :remote => "true"   do %> 
+							<center> Need Information </center>
+						<% end %> 
+					</li>
+					<li>
+						<%= link_to bot_existing_path , :remote => true   do %> 
+							<center> Existing User </center>
+						<% end %>
+					</li>  
+				</ul>
+			</div>
+		</li>
 
-</li>
-<li>
-
- <%= link_to bot_existing_path , :remote => true   do %> 
-<center> Existing User </center>  <% end %>
-</li>  
-</ul>
-</div>
-</li>
-<div id="show">
-
-<%= render @messages %>
-</div>
-<div id="typing"> 
- </div>
+		<div id="show">
+			<%= render @messages %>
+		</div>
   
-
- <div class="bottom">
-
-
-<%= form_for @message, :url => {:controller => "bot", :action => "new"} , :id => "submitit" , :remote => "true" do |f| %>
-<div class="input-group">
-
-   <%= f.text_field :message , :class => 'form-control' , :id => "message_input" %><br />
-    <span class="input-group-btn" id="basic-addon2"> 
-     <%= button_tag( :class => "btn btn-default btn-primary") do %>
-   <i class="glyphicon glyphicon-chevron-right"></i>
-<% end %>
-</span>
-  </div>
-
-<% end %>
+		<div class="bottom">
+			<%= form_for @message, :url => {:controller => "bot", :action => "new"} , :id => "submitit" , :remote => "true" do |f| %>
+				<div class="input-group">
+					<%= f.text_field :message , :class => 'form-control' , :id => "message_input" %><br />
+   						<span class="input-group-btn" id="basic-addon2"> 
+     						<%= button_tag( :class => "btn btn-default btn-primary") do %>
+   								<i class="glyphicon glyphicon-chevron-right"></i>
+							<% end %>
+						</span>
+  				</div>
+			<% end %>
+		</div>
+	</ul>
 </div>
+
 
 
