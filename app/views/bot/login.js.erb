@@ -5,8 +5,7 @@
 
 	<% else %> 
 
-	$("#show").append("Cannot Login");
-	$("#message_alert").html("<div class ='alert alert-danger '> <center>  You cannot login because of invalid credentials </center> </div> ");
+	$("#show").append("<div class ='alert alert-danger '> <center>  You cannot login because of invalid credentials </center> </div>");
 
 	<% end %>
 $("html, body").animate({ scrollTop: $(document).height() }, 1000);

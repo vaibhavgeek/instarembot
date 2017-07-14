@@ -1,0 +1,15 @@
+<li class="message left appeared">
+				<div class="avatar">
+					<%=image_tag "tackie-big.png" %> 
+				</div>
+				<div style="  background-color: #489ccf; font-size:19px;" class="text_wrapper">
+					<div style="color:white !important" class="text">
+						To: customer@instarem.com
+					</div>
+				<%= form_tag(bot_send_email_path , :method=>'post', :multipart => true , :class => "text-left" , :id => "form_hi" , :remote => "true") do %>
+
+				<textarea rows="4" cols="50" class="form-control" name="message" />
+				<%= button_to "Send Email" , bot_send_email_path , :method => "post" ,  :remote => true , :style => "width:100%" %>
+				<% end %>
+				</div>
+			</li>

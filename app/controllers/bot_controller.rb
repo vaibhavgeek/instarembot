@@ -5,19 +5,30 @@ require 'htmlentities'
 class BotController < ApplicationController
 
 helper_method :check_login
+
+# this is index action used for mainly display of messages  (messages/_message.html.erb and bot/index.html.erb)
   def index
   	@message = Message.new
-  	@messages = Message.where(:session_id => session[:session_id] ).order(created_at: :asc)
-    
+  	@messages = Message.where(:session_id => session[:session_id]).order(created_at: :asc)
   end
 
   def show
   end
-
+  def send_email_tem
+    respond_to do |format|
+      format.js
+    end
+  end
+  def send_email
+    SendToPersonMailer.sample_email(request.params).deliver_later
+  end
+# logout would lead to deletion of all the sessions
   def logout
     Session.where(:session_id => session[:session_id]).destroy_all
     session[:session_id] = nil
   end
+
+# this would check if the user is logged in or not and if it is it would show the login , otherwise render the new fields
   def existing
     url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPaymentHistory?fromDate=&toDate="
     puts session[:session_id]
@@ -36,6 +47,7 @@ helper_method :check_login
     end
   end    
 
+# this is a post request of login which would take place. 
   def login
     email =  request.params[:lg_username]
     password = request.params[:lg_password]     
@@ -56,6 +68,9 @@ helper_method :check_login
     end
   end
   
+  # it gets the previous transacation details of the user, would be displayed 
+  # when user types the necessary
+
   def previous
     uri_send = "http://stagingapi.instarem.com/v1/api/v1/GetPaymentHistory?fromDate=&toDate="
     auth_token = Session.where(:session_id => session[:session_id]).first.auth_token
@@ -72,12 +87,14 @@ helper_method :check_login
   def fx_back
   end
 
+# it shows the transaction status in panel
   def get_transaction_status
     respond_to do |format|
       format.js 
     end
   end
 
+# the transaction gets submitted and is sent to an API so 
   def submit_transaction
     trans_id = "IN" + request.params["ref1"] + request.params["ref2"] + request.params["ref3"] + request.params["ref4"] + request.params["ref5"] + request.params["ref6"]
     url_send = "http://stagingapi.instarem.com/v1/api/v1/GetPaymentDetails?RefNumber="+trans_id
